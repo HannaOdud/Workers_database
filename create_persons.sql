@@ -7,8 +7,8 @@ CREATE TABLE persons (
     age INTEGER,
     gender TEXT,
     work_status TEXT,
-    education_type_id INTEGER,
+    education_types_id INTEGER,
     address_id INTEGER,
-    FOREIGN KEY (education_type_id) REFERENCES education_types(education_type_id),
+    FOREIGN KEY (education_types_id) REFERENCES education_types(education_types_id),
     FOREIGN KEY (address_id) REFERENCES addresses(address_id)
 );

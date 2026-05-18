@@ -1,4 +1,5 @@
-.print "----------------------load_addresses.sql-----------------------------------------"
+.print "----------------------load_addresses.sql---------------------------------"
+
 .mode csv
---.import 
+.import addresses.csv addresses
 .mode list
