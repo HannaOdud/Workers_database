@@ -1,7 +1,8 @@
-.print "----------------------create_persons.sql---------------------"
+.print "----------------------create_persons.sql---------------------------------"
+
 
 CREATE TABLE persons (
-    person_id INTEGER,
+    person_id INTEGER PRIMARY KEY AUTOINCREMENT,
     full_name TEXT UNIQUE,
     age INTEGER,
     gender TEXT,

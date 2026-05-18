@@ -1,4 +1,5 @@
-.print "----------------------create_persons_jobs.sql---------------------"
+.print "----------------------create_persons_jobs.sql----------------------------"
+
 
 CREATE TABLE persons_jobs (
     person_id INTEGER,

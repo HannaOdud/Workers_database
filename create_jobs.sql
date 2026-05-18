@@ -1,4 +1,5 @@
-.print "----------------------create_jobs.sql---------------------"
+.print "----------------------create_jobs.sql------------------------------------"
+
 
 CREATE TABLE jobs (
     job_id INTEGER PRIMARY KEY AUTOINCREMENT,

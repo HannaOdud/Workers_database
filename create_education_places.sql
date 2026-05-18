@@ -1,4 +1,5 @@
-.print "----------------------create_education_places.sql---------------------"
+.print "----------------------create_education_places.sql------------------------"
+
 
 CREATE TABLE education_places(
     ed_place_id INTEGER PRIMARY KEY AUTOINCREMENT,

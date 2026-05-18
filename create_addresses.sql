@@ -1,4 +1,5 @@
-.print "----------------------create_addresses.sql---------------------"
+.print "----------------------create_addresses.sql-------------------------------"
+
 
 CREATE TABLE addresses(
     address_id INTEGER PRIMARY KEY AUTOINCREMENT,
