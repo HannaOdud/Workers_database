@@ -118,14 +118,21 @@ JOIN education_types ON education_types.education_types_id = ed_place_ed_types.e
 GROUP BY education_places.title
 ORDER BY tot_professions DESC;
 
+
 .print "15. What is the average age of persons for each profession?"
 SELECT education_types.title, ROUND(AVG(persons.age),1)AS avg_age
 FROM persons
 JOIN education_types ON education_types.education_types_id = persons.education_types_id
 GROUP BY education_types.title;
 
+
 .print "16. Which persons are working in the same city where they live?"
---SELECT persons.full_name, addresses.city, 
+--SELECT persons.full_name, jobs.title, addresses.city
+--FROM persons
+--JOIN persons_jobs ON persons_jobs.person_id = persons.person_id
+--JOIN jobs ON jobs.job_id = persons_jobs.job_id
+--JOIN addresses ON addresses.address_id = jobs.address_id;
+
 
 .print "17. Which companies have jobs with salary greater than 80,000?"
 SELECT companies.title, SUM(jobs.salary)AS tot_salary
@@ -135,17 +142,26 @@ GROUP BY companies.title
 HAVING tot_salary > 80000
 ORDER BY tot_salary DESC;
 
+
 .print "18. How many education places exist in each country?"
 SELECT COUNT(education_places.ed_place_id)AS tot_ed_places, addresses.country
 FROM addresses
 JOIN education_places ON education_places.address_id = addresses.address_id
 GROUP BY addresses.country; 
 
+
 .print "19. Which professions have the highest average salary?"
 SELECT education_types.title, AVG(jobs.salary)AS avg_salary
 FROM jobs 
-JOIN education_types ON education_types
+JOIN education_types ON education_types.education_types_id = jobs.education_types_id
+GROUP BY education_types.education_types_id
+ORDER BY avg_salary DESC
+LIMIT 1;
 
 
 .print "20. Which persons are unemployed but have a profession (education type)?"
+SELECT persons.full_name, education_types.title
+FROM persons
+JOIN education_types ON education_types.education_types_id = persons.education_types_id
+WHERE persons.work_status = 'Unemployed';
 
