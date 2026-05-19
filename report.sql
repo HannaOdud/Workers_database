@@ -86,4 +86,66 @@ JOIN persons ON persons.education_types_id = education_types.education_types_id
 GROUP BY education_types.education_types_id
 ORDER BY tot_person DESC;
 
+.print "11.Which companies offer the highest average salary?"
+SELECT companies.title, ROUND(AVG(jobs.salary),1)AS avg_salary
+FROM companies
+JOIN jobs ON jobs.company_id = companies.company_id
+GROUP BY companies.company_id
+ORDER BY avg_salary DESC;
+
+
+.print "12. How many persons belong to each profession (education type)"
+SELECT COUNT(persons.person_id)AS tot_person, education_types.title
+FROM persons
+JOIN education_types ON education_types.education_types_id = persons.education_types_id
+GROUP BY education_types.education_types_id
+ORDER BY tot_person DESC;
+
+
+.print "13. Which cities have the most jobs available?"
+SELECT addresses.city, COUNT(jobs.job_id)AS tot_job
+FROM addresses
+JOIN jobs ON jobs.address_id = addresses.address_id
+GROUP BY addresses.city
+ORDER BY tot_job DESC; 
+
+
+.print "14. Which education places offer the most professions?"
+SELECT education_places.title, COUNT(education_types.education_types_id)AS tot_professions, education_types.title
+FROM education_places
+JOIN ed_place_ed_types ON  ed_place_ed_types.ed_place_id = education_places.ed_place_id
+JOIN education_types ON education_types.education_types_id = ed_place_ed_types.education_types_id
+GROUP BY education_places.title
+ORDER BY tot_professions DESC;
+
+.print "15. What is the average age of persons for each profession?"
+SELECT education_types.title, ROUND(AVG(persons.age),1)AS avg_age
+FROM persons
+JOIN education_types ON education_types.education_types_id = persons.education_types_id
+GROUP BY education_types.title;
+
+.print "16. Which persons are working in the same city where they live?"
+--SELECT persons.full_name, addresses.city, 
+
+.print "17. Which companies have jobs with salary greater than 80,000?"
+SELECT companies.title, SUM(jobs.salary)AS tot_salary
+FROM companies
+JOIN jobs ON jobs.company_id = companies.company_id
+GROUP BY companies.title
+HAVING tot_salary > 80000
+ORDER BY tot_salary DESC;
+
+.print "18. How many education places exist in each country?"
+SELECT COUNT(education_places.ed_place_id)AS tot_ed_places, addresses.country
+FROM addresses
+JOIN education_places ON education_places.address_id = addresses.address_id
+GROUP BY addresses.country; 
+
+.print "19. Which professions have the highest average salary?"
+SELECT education_types.title, AVG(jobs.salary)AS avg_salary
+FROM jobs 
+JOIN education_types ON education_types
+
+
+.print "20. Which persons are unemployed but have a profession (education type)?"
 
