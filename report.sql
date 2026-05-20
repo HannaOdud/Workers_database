@@ -165,3 +165,34 @@ FROM persons
 JOIN education_types ON education_types.education_types_id = persons.education_types_id
 WHERE persons.work_status = 'Unemployed';
 
+.print "21. Test OM DELETE CASCADE. Show "
+SELECT persons.person_id, persons.full_name, addresses.address_id, addresses.postcode
+FROM persons
+JOIN addresses ON addresses.address_id = persons.address_id
+LIMIT 10;
+
+
+DELETE FROM addresses
+WHERE address_id = 35;
+
+
+SELECT persons.person_id, persons.full_name, addresses.address_id, addresses.postcode
+FROM persons
+JOIN addresses ON addresses.address_id = persons.address_id
+LIMIT 10;
+
+.print "22. TEST INSERT INTO "
+INSERT INTO persons(full_name, age, gender, work_status, education_types_id, address_id) 
+VALUES ('Test Person', 30, 'Female','Student', 6, 20);
+SELECT*FROM persons;
+
+.print "23. UPDATE statement 'New name' "
+UPDATE persons
+SET full_name = 'New name'
+WHERE full_name = 'Test Person';
+SELECT*FROM persons;
+
+.print "24. REPLACE INTO statement"
+REPLACE INTO persons (full_name, age, gender, work_status, education_types_id, address_id) VALUES ('New name', 31, 'Female','Student', 6, 20);
+SELECT*FROM persons;
+
