@@ -196,3 +196,24 @@ SELECT*FROM persons;
 REPLACE INTO persons (full_name, age, gender, work_status, education_types_id, address_id) VALUES ('New name', 31, 'Female','Student', 6, 20);
 SELECT*FROM persons;
 
+.print "25. Which companies employ more than 2 persons? "
+
+.print "26. Which profession has the highest average salary?"
+
+.print "27. Which persons work in a different country from where they live?"
+
+.print "28. Which education places offer more than one profession?"
+
+.print "29. Which city has the highest average salary?"
+
+.print "30. Which companies have jobs in more than one country?"
+
+.print "31. Which students study professions that match their own profession type? "
+
+.print "32. Find all unemployed persons older than the average age of all persons."
+
+.print "33. Which profession is studied in the largest number of education places?"
+
+.print "34. Which company offers the single highest salary in the database?"
+
+.print "35. Which persons live in one country, study in another country, and work in a third country?"
