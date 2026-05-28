@@ -197,23 +197,86 @@ REPLACE INTO persons (full_name, age, gender, work_status, education_types_id, a
 SELECT*FROM persons;
 
 .print "25. Which companies employ more than 2 persons? "
+SELECT companies.title, COUNT(persons_jobs.person_id)AS tot_employees
+FROM jobs
+JOIN companies ON companies.company_id = jobs.company_id
+JOIN persons_jobs ON persons_jobs.job_id = jobs.job_id
+GROUP BY companies.title
+HAVING COUNT(persons_jobs.job_id) > 2; 
+
 
 .print "26. Which profession has the highest average salary?"
+SELECT education_types.title, AVG(jobs.salary)AS avg_salary
+FROM jobs
+JOIN education_types ON education_types.education_types_id = jobs.education_types_id
+GROUP BY education_types.education_types_id;
+ORDER BY avg_age DESC
+LIMIT 1;
+
 
 .print "27. Which persons work in a different country from where they live?"
+SELECT 
+    persons.full_name,
+    jobs.title,
+    home.country AS home_country,
+    work.country AS work_country
+FROM persons
+JOIN persons_jobs ON persons_jobs.person_id = persons.person_id
+JOIN jobs ON jobs.job_id = persons_jobs.job_id
+JOIN addresses AS home ON home.address_id = persons.address_id
+JOIN addresses AS work ON work.address_id = jobs.address_id
+WHERE home.country <> work.country;
+
 
 .print "28. Which education places offer more than one profession?"
+SELECT education_places.title, COUNT(education_types.education_types_id)AS tot_professions
+FROM ed_place_ed_types
+JOIN education_places ON education_places.ed_place_id = ed_place_ed_types.ed_place_id
+JOIN education_types ON education_types.education_types_id = ed_place_ed_types.education_types_id
+GROUP BY (education_places.ed_place_id)
+HAVING tot_professions > 1;
+
 
 .print "29. Which city has the highest average salary?"
+SELECT addresses.city, AVG(jobs.salary)AS avg_salary
+FROM jobs
+JOIN addresses ON addresses.address_id = jobs.address_id
+GROUP BY (addresses.city)
+ORDER BY avg_salary DESC
+LIMIT 1;
+
+
 
 .print "30. Which companies have jobs in more than one country?"
+SELECT companies.title, COUNT(addresses.country)AS tot_countries
+FROM addresses
+JOIN jobs ON jobs.address_id = addresses.address_id
+JOIN companies ON companies.company_id = jobs.company_id
+GROUP BY (companies.company_id)
+HAVING tot_countries > 1;
+
 
 .print "31. Which students study professions that match their own profession type? "
 
 .print "32. Find all unemployed persons older than the average age of all persons."
+SELECT full_name, work_status, age
+FROM persons
+WHERE work_status = 'Unemployed' AND age > (SELECT AVG(age)AS avg_age FROM persons);
+
 
 .print "33. Which profession is studied in the largest number of education places?"
+SELECT education_types.title, COUNT(education_places.ed_place_id)AS tot_num
+FROM education_places
+JOIN ed_place_ed_types ON ed_place_ed_types.ed_place_id = education_places.ed_place_id
+JOIN education_types ON education_types.education_types_id = ed_place_ed_types.education_types_id
+GROUP BY (education_types.education_types_id)
+ORDER BY tot_num DESC;
 
 .print "34. Which company offers the single highest salary in the database?"
+SELECT companies.title, jobs.salary
+FROM jobs
+JOIN companies ON companies.company_id = jobs.company_id
+WHERE jobs.salary = (SELECT MAX(jobs.salary) FROM jobs);
+
 
 .print "35. Which persons live in one country, study in another country, and work in a third country?"
